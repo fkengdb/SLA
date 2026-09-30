@@ -40,18 +40,12 @@ function isOverdue(status) {
   return /^ESTOURO(U)?$/i.test(status.trim());
 }
 
-async function saveState(tabId, state) {
-  await chrome.storage.session.set({ [`sla:${tabId}`]: state });
-  // O popup não é reativo ao storage. Quando estiver aberto durante a
-  // consulta, esta mensagem faz a tela trocar de "Consultando" pelo retorno.
+function publishState(tabId, state) {
+  // O popup pode estar aberto enquanto a requisição termina. A mensagem o
+  // atualiza em tempo real; se estiver fechado, não há nada a fazer.
   chrome.runtime.sendMessage({ type: "state-updated", tabId, state }).catch(() => {
-    // Não há popup aberto: o estado continua salvo para a próxima abertura.
+    // Não há popup aberto.
   });
-}
-
-async function getState(tabId) {
-  const result = await chrome.storage.session.get(`sla:${tabId}`);
-  return result[`sla:${tabId}`] ?? null;
 }
 
 async function setBadge(tabId, kind) {
@@ -76,12 +70,11 @@ async function setBadge(tabId, kind) {
 async function fetchSla(tabId, url) {
   const item = parseAzureQueryUrl(url);
   if (!item) {
-    await chrome.storage.session.remove(`sla:${tabId}`);
     await setBadge(tabId, "clear");
     return null;
   }
 
-  await saveState(tabId, { phase: "loading", item, updatedAt: Date.now() });
+  publishState(tabId, { phase: "loading", item, updatedAt: Date.now() });
   await setBadge(tabId, "pending");
 
   try {
@@ -101,7 +94,7 @@ async function fetchSla(tabId, url) {
       isOverdue: isOverdue(payload.status),
       updatedAt: Date.now()
     };
-    await saveState(tabId, state);
+    publishState(tabId, state);
     await setBadge(tabId, state.isOverdue ? "overdue" : "ok");
     return state;
   } catch (error) {
@@ -111,7 +104,7 @@ async function fetchSla(tabId, url) {
       error: error instanceof Error ? error.message : "Não foi possível consultar o SLA.",
       updatedAt: Date.now()
     };
-    await saveState(tabId, state);
+    publishState(tabId, state);
     await setBadge(tabId, "error");
     return state;
   }
@@ -122,38 +115,19 @@ async function refreshTab(tab) {
   return fetchSla(tab.id, tab.url);
 }
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.url) refreshTab(tab);
+chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  // Não consulta o webhook durante a navegação. Apenas evita que o resultado
+  // do Work Item anterior permaneça visível no novo endereço.
+  if (changeInfo.url) setBadge(tabId, "clear");
 });
 
-chrome.tabs.onActivated.addListener(async ({ tabId }) => {
-  const tab = await chrome.tabs.get(tabId);
-  refreshTab(tab);
-});
-
-chrome.webNavigation.onHistoryStateUpdated.addListener(({ tabId, url, frameId }) => {
-  if (frameId === 0) fetchSla(tabId, url);
+chrome.webNavigation.onHistoryStateUpdated.addListener(({ tabId, frameId }) => {
+  // Azure DevOps pode trocar de Work Item sem recarregar a página.
+  // Esta rotina também só limpa o indicador: nunca chama o webhook.
+  if (frameId === 0) setBadge(tabId, "clear");
 }, { url: [{ hostEquals: "dev.azure.com" }] });
 
-chrome.tabs.onRemoved.addListener((tabId) => chrome.storage.session.remove(`sla:${tabId}`));
-
-async function refreshOpenAzureTabs() {
-  const tabs = await chrome.tabs.query({ url: "https://dev.azure.com/*" });
-  await Promise.all(tabs.map(refreshTab));
-}
-
-chrome.runtime.onInstalled.addListener(refreshOpenAzureTabs);
-chrome.runtime.onStartup.addListener(refreshOpenAzureTabs);
-
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message?.type === "get-state") {
-    getState(message.tabId).then(sendResponse);
-    return true;
-  }
-  if (message?.type === "refresh" && sender.tab?.id !== undefined) {
-    fetchSla(sender.tab.id, sender.tab.url).then(sendResponse);
-    return true;
-  }
   if (message?.type === "refresh-tab") {
     chrome.tabs.get(message.tabId).then(refreshTab).then(sendResponse);
     return true;

@@ -1,16 +1,140 @@
-:root { color-scheme: light; font-family: Arial, sans-serif; }
-body { margin: 0; min-width: 420px; max-width: 620px; color: #172033; background: #f7f9fc; }
-main { padding: 16px; }
-header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; border-bottom: 1px solid #dce2ec; padding-bottom: 12px; }
-h1 { font-size: 18px; margin: 0 0 5px; }
-#item-label { margin: 0; color: #55627a; font-size: 13px; }
-button { border: 1px solid #c7d0df; border-radius: 6px; background: white; color: #1e3a8a; cursor: pointer; font-size: 20px; height: 34px; width: 36px; }
-button:hover { background: #edf3ff; }
-.status { display: flex; align-items: center; gap: 8px; font-weight: 700; margin: 15px 0; }
-.dot { height: 12px; width: 12px; border-radius: 50%; display: inline-block; }
-.overdue .dot { background: #c62828; }.ok .dot { background: #15803d; }.pending .dot { background: #2563eb; }.error .dot { background: #b45309; }
-.report { background: white; border: 1px solid #dce2ec; border-radius: 8px; padding: 14px; line-height: 1.45; font-size: 14px; max-height: 580px; overflow: auto; }
-.report h2 { font-size: 16px; margin: 18px 0 8px; }.report h2:first-child { margin-top: 0; }
-.report p { margin: 8px 0; }.report ul { margin: 7px 0; padding-left: 21px; }.report li { margin: 5px 0; }
-.report hr { border: 0; border-top: 1px solid #dce2ec; margin: 16px 0; }.report code { background: #f0f3f8; border-radius: 3px; padding: 1px 3px; }
-.message { margin: 16px 0 4px; padding: 12px; border-radius: 7px; background: #edf3ff; color: #173b7a; }.message.error { background: #fff4e5; color: #8a4b08; }
+:root {
+    color-scheme: light;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-width: 420px;
+    max-width: 620px;
+    color: #172033;
+    background: #f7f9fc;
+}
+
+main {
+    padding: 16px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+    border-bottom: 1px solid #dce2ec;
+    padding-bottom: 12px;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0 0 5px;
+}
+
+#item-label {
+    margin: 0;
+    color: #55627a;
+    font-size: 13px;
+}
+
+button {
+    border: 1px solid #c7d0df;
+    border-radius: 6px;
+    background: white;
+    color: #1e3a8a;
+    cursor: pointer;
+    font-size: 20px;
+    height: 34px;
+    width: 36px;
+}
+
+button:hover {
+    background: #edf3ff;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    margin: 15px 0;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.overdue .dot {
+    background: #c62828;
+}
+
+.ok .dot {
+    background: #15803d;
+}
+
+.pending .dot {
+    background: #2563eb;
+}
+
+.error .dot {
+    background: #b45309;
+}
+
+.report {
+    background: white;
+    border: 1px solid #dce2ec;
+    border-radius: 8px;
+    padding: 14px;
+    line-height: 1.45;
+    font-size: 14px;
+    max-height: 580px;
+    overflow: auto;
+}
+
+.report h2 {
+    font-size: 16px;
+    margin: 18px 0 8px;
+}
+
+.report h2:first-child {
+    margin-top: 0;
+}
+
+.report p {
+    margin: 8px 0;
+}
+
+.report ul {
+    margin: 7px 0;
+    padding-left: 21px;
+}
+
+.report li {
+    margin: 5px 0;
+}
+
+.report hr {
+    border: 0;
+    border-top: 1px solid #dce2ec;
+    margin: 16px 0;
+}
+
+.report code {
+    background: #f0f3f8;
+    border-radius: 3px;
+    padding: 1px 3px;
+}
+
+.message {
+    margin: 16px 0 4px;
+    padding: 12px;
+    border-radius: 7px;
+    background: #edf3ff;
+    color: #173b7a;
+}
+
+.message.error {
+    background: #fff4e5;
+    color: #8a4b08;
+}
