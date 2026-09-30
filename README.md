@@ -10,8 +10,8 @@ https://dev.azure.com/{organizacao}/{project}/_workitems/edit/{id}
 Exemplo reconhecido:
 
 ```text
-https://dev.azure.com/timbrasil/Producao/_queries/edit/1516804/?queryId=447cfb06-b57c-4c39-83f9-8b13fc14a8ef
-https://dev.azure.com/timbrasil/Producao/_workitems/edit/1322962
+https://dev.azure.com/org/Producao/_queries/edit/1516804/?queryId=447cfb06-b57c-4c39-83f9-8b13fc14a8ef
+https://dev.azure.com/org/Producao/_workitems/edit/1322962
 ```
 
 Nesse caso, a extensão chama:
