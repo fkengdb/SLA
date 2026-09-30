@@ -27,13 +27,3 @@ https://integracao-n8n.br.engineering/webhook/sla?project=Producao&id=1516804
 3. Clique em **Carregar sem compactação**.
 4. Selecione esta pasta: `C:\Users\couto\Documents\Extension`.
 5. Abra uma URL de consulta do Azure DevOps e aguarde o indicador no ícone da extensão.
-
-O badge do ícone será:
-
-- `SLA` em vermelho se `status_do_sla` for `ESTOURO` ou `ESTOUROU`.
-- `OK` em verde para qualquer outro status retornado.
-- `...` em azul durante a consulta e `!` em laranja quando houver erro.
-
-Ao clicar no ícone, o campo `output.body` da resposta é exibido com a formatação Markdown básica do relatório. O botão de atualização faz uma nova consulta para o item atual.
-
-O ícone da extensão é carregado a partir de `plugin_icon.png`.
