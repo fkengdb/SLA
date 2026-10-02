@@ -22,7 +22,7 @@ Nesse caso, a extensão chama:
 
 ## Instalação local
 
-1. Faça o download e extrai a pasta onde desejar no seu computador.
+1. Faça o download e extrai a pasta onde desejar no seu computador. [Download](https://github.com/fkengdb/SLA/releases/download/v.1.0.2/Consulta-SLA.v1.0.2.7z)
 2. Abra `chrome://extensions` no Chrome ou `edge://extensions` no Edge.
 3. Ative o **Modo do desenvolvedor**.
 4. Clique em **Carregar sem compactação**.
