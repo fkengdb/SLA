@@ -28,7 +28,8 @@ Nesse caso, a extensão chama:
 4. Clique em **Carregar sem compactação**.
 5. Selecione a pasta no seu computador onde os arquivos da extensão (manifest.json, background.js, etc.) estão localizados e confirme.
 6. A extensão e seu ícone devem aparecer na sua lista de extensões instaladas. Recomendado fixa-lá na barra superior (clicando no ícone de "quebra-cabeça" e no alfinete).
-5. Abra uma URL de consulta do Azure DevOps e clique na extensão para configura-la. Após configurar o token está pronta para uso. (Pode ocorrer erro na consulta devido falta de permissão do perfil azure).
+5. Abra uma URL de consulta do Azure DevOps e clique na extensão para configura-la.
+6. Conectado a VPN. Após configurar o token está pronta para uso. (Pode ocorrer erro na consulta devido falta de permissão do perfil Azure).
 
 O badge do ícone será:
 
