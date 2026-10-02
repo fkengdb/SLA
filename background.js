@@ -2,7 +2,7 @@ const WEBHOOK_URL = "https://integracao-n8n.br.engineering/webhook/sla";
 
 /**
  * Extrai o projeto e o Work Item ID de URLs como:
- * https://dev.azure.com/timbrasil/Producao/_workitems/edit/1322962
+ * https://dev.azure.com/{organizacao}/{projeto}/_workitems/edit/{id}
  * e também a rota de consulta `_queries/edit/{id}` inicialmente solicitada.
  */
 function parseAzureQueryUrl(urlString) {
